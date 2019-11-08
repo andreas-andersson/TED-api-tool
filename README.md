@@ -16,27 +16,23 @@ Search for notices directly in the terminal.
 
 `python ted.py --country=SE --limit=20 --date=20191110 --search='search string'`
 
-### Arguements
+### Arguments
 
- `--limit` 
+ **--limit** Limit number of returned documents, default is 10
  
- Limit number of returned documents, default is 10
- 
- `--page` 
- 
- To paginate results use page arguement to set page number
+ **--page** To paginate results use page arguement to set page number
 
-`--date` 
+**--date** Limit search to notices published on a specific day. (YYYYMMDD)
 
-Limit search to notices published on a specific day. (YYYYMMDD)
+**--country** Set a two letter countrycode for the notice origin
 
-`--country` 
+**--search** A search string
 
-Set a two letter countrycode for the notice origin
+**--savexml** Set an output path to save all results as single xml-files
 
-`--search` 
+**--json** Output results in JSON-format. WIP!
 
-A search string
+**--debug** Show debug information
 
 ## Documentation of TED API
 
