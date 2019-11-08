@@ -21,6 +21,7 @@ parser.add_argument('--page', '-p', help = 'Limit results to, default is 50', ty
 parser.add_argument('--search', '-t', help = 'Search string', type = str )
 parser.add_argument('--date', '-d', help = 'Date to search (YYYYMMDD)', type = str )
 parser.add_argument('--savexml', help = 'Save results as XML-files', type = str )
+parser.add_argument('--savejson', help = 'Save results as JSON-file', type = str )
 parser.add_argument('--json', help = 'Return as json', action='store_true' )
 parser.add_argument('--debug', help = 'Prints out debug information', action='store_true' )
 
@@ -58,18 +59,43 @@ def fetchFromApi():
     req_json = req.json()
     debug(req_json, 'json response')
 
-    print('-------------------------------------------------------------------')
-    print('')
-    print('    Showing '+ str(len(req_json['results'])) + ' of ' + str(req_json['total']) + ' found notices.')
-    print('')
-    print('-------------------------------------------------------------------')
-    print('')
-    print('')
+    # New dict to save results in
+    results = {
+        "total": req_json['total'],
+        "current_count": len(req_json['results']),
+        "current_page": args.page,
+        "results": [],
+    }
 
+    # Loop over results
     for c in req_json['results']:
-        doc = readContent( c['content'] )
-        #  print(json.dumps(doc))
-        if args.json == False:
+        results['results'].append( readContent( c['content'] ) )
+
+    # Save to json file
+    if args.savejson:
+        # Get current dir, create and save output file
+        filename = os.path.dirname(os.path.abspath(__file__)) + '/' + str(args.savejson)
+        f = open(filename,"w+")
+        f.write(json.dumps(results))
+        f.close()
+
+    # Output json
+    if args.json:
+        print( json.dumps(results) )
+    
+    # Print results
+    else:
+        print('-------------------------------------------------------------------')
+        print('')
+        print('    Showing '+ str(len(req_json['results'])) + ' of ' + str(req_json['total']) + ' found notices.')
+        print('')
+        print('-------------------------------------------------------------------')
+        print('')
+        print('')
+
+        # Loop over results again.
+        # TODO: Dry?
+        for doc in results['results']:
             print(doc['name'] + ' / ' + doc['city'] )
             print(doc['title'])
             print(doc['desc'])
