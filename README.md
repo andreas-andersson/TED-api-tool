@@ -22,7 +22,7 @@ Search for notices directly in the terminal.
  
  **--page** To paginate results use page arguement to set page number
 
-**--date** Limit search to notices published on a specific day. (YYYYMMDD)
+**--date** Limit search to notices published on a specific day, or a date span (YYYYMMDD or YYYYMMDD-YYYYMMDD)
 
 **--country** Set a two letter countrycode for the notice origin
 

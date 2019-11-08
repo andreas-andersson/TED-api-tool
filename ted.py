@@ -19,7 +19,7 @@ parser.add_argument('--country', '-c', help = 'Set country code, two letters in 
 parser.add_argument('--limit', '-l', help = 'Limit results to, default is 50', type = int, default = 20)
 parser.add_argument('--page', '-p', help = 'Limit results to, default is 50', type = int, default = 1)
 parser.add_argument('--search', '-t', help = 'Search string', type = str )
-parser.add_argument('--date', '-d', help = 'Date to search (YYYYMMDD)', type = str )
+parser.add_argument('--date', '-d', help = 'Date to search (YYYYMMDD or a span YYYYMMDD-YYYYMMDD)', type = str )
 parser.add_argument('--savexml', help = 'Save results as XML-files', type = str )
 parser.add_argument('--savejson', help = 'Save results as JSON-file', type = str )
 parser.add_argument('--json', help = 'Return as json', action='store_true' )
@@ -33,12 +33,20 @@ def fetchFromApi():
 
     # Start building a query
     qs = []
+
+    # Set country parameter
     if args.country:
         qs.append("CY=[" + str(args.country) +"]")
 
+    # Set date parameter
     if args.date:
-        qs.append("PD=[" + str(args.date) +"]")
+        date = args.date.split('-')
+        if len(date) == 2:
+            qs.append("PD=[" + str(date[0]).strip() + " <> " + str(date[0]).strip() +"]")
+        else:
+            qs.append("PD=[" + str(date[0]).strip() +"]")
     
+    ## Set search string
     if args.search:
         searchList = []
         for w in args.search.split(","):
