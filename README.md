@@ -30,7 +30,7 @@ Search for notices directly in the terminal.
 
 **--savexml** Set an output path to save all results as single xml-files
 
-**--savejson** Set filename to save data as json
+**--savejson** Set filename to save all results as json
 
 **--json** Output results in JSON-format
 
