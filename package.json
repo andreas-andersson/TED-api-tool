@@ -2,7 +2,7 @@
   "name": "python_ted_api_tool",
   "version": "1.0.0",
   "description": "Fetch and process documents from TED API",
-  "main": "app.py",
+  "main": "ted.py",
   "keywords": [
     "python",
     "api"

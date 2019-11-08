@@ -6,15 +6,15 @@ Install Python dependencies.
 
 `pip install -r requirements.txt`
 
-Run the [app.py](app.py) file with python
+Make the file executable with:
 
-`python app.py`
+`chmod +x ted.py`
 
 ## Usage
 
 Search for notices directly in the terminal.
 
-`python app.py --country=SE --limit=20 --date=20191110 --search='search string'`
+`python ted.py --country=SE --limit=20 --date=20191110 --search='search string'`
 
 ### Arguements
 
