@@ -151,7 +151,7 @@ def extractJSON(doc):
             "street":        findOrFalse( org_details.find('ADDRESS') ),
             "contact_name":  findOrFalse( org_details.find('CONTACT_POINT') ),
             "contact_email": findOrFalse( org_details.find('E_MAIL') ),
-            "url":           findOrFalse( org_details.find('E_MAIL') )
+            "url":           findOrFalse( org_details.find('URL_GENERAL') ) or findOrFalse( doc.find('NOTICE_DATA').find('IA_URL_GENERAL'))
         }
     
     # ted['primary_cpv'] = ''
