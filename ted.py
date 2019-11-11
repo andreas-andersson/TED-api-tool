@@ -104,7 +104,7 @@ def fetchFromApi():
         # Loop over results again.
         # TODO: Dry?
         for doc in results['results']:
-            print(doc['name'] + ' / ' + doc['city'] )
+            print(doc['name'] + ' / ' + doc['city'] + ' / ' + doc['docId'] )
             print(doc['title'])
             print(doc['desc'])
             print(doc['applyurl'])
