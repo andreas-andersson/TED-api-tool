@@ -160,15 +160,28 @@ def extractJSON(doc):
         ted['cpv'][cpv['CODE']] = cpv.get_text()
 
     ted['nuts'] =          findOrFalse( doc.find('NUTS'), 'CODE' ) or ""
-    ted['name'] =          findOrFalse( doc.find('CONTRACTING_BODY').find('OFFICIALNAME') ) or ""
     ted['city'] =          findOrFalse( doc.find('TOWN') ) or ""
     ted['title'] =         findOrFalse( doc.find('TITLE') ) or ""
     ted['desc'] =          findOrFalse( doc.find('SHORT_DESCR') ) or ""
     ted['docId'] =         findOrFalse( doc.find('TED_EXPORT'), 'DOC_ID' )  or "" 
-    ted['date_added'] =    findOrFalse( doc.find('CODED_DATA_SECTION').find('DATE_PUB') )  or "" 
     ted['date_expires'] =  findOrFalse( doc.find('DELETION_DATE') )  or "" 
     ted['date_submitby'] = findOrFalse( doc.find('DATE_RECEIPT_TENDERS') )  or "" 
     ted['applyurl'] =      findOrFalse( doc.find('URL_DOCUMENT') ) or ""
+
+    # Because chaining find() can cause errors
+    contracting_body = doc.find('CONTRACTING_BODY')
+    if contracting_body: 
+        ted['name'] = findOrFalse( contracting_body.find('OFFICIALNAME') ) or ""
+    else:
+        ted['name'] = ""
+
+    # Because chaining find() can cause errors
+    coded_data_section = doc.find('CODED_DATA_SECTION')
+    if coded_data_section: 
+        ted['date_added'] = findOrFalse( coded_data_section.find('DATE_PUB') ) or ""
+    else:
+        ted['date_added'] = ""
+
     return ted
 
 def findOrFalse(el, attr = False):
